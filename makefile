@@ -24,6 +24,8 @@ $(PROG) : $(OBJS)
 ./src/besta.o: ./inc/besta.h 
 	$(CC) $(CPPFLAGS) -c ./src/besta.cpp
 
+./src/jokenpo.o: ./inc/jokenpo.h
+	$(CC) $(CPPFLAGS) -c ./src/jokenpo.cpp
 clean:
 	rm -f core $(OBJS)
 clean_all:

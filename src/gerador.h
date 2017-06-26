@@ -1,4 +1,5 @@
 #include "../inc/listaEncadeada.h"
+#include "../inc/jokenpo.h"
 #include <list>
 #include <ctime>
 #include <cstdlib>

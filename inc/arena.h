@@ -2,8 +2,7 @@
 #define _ARENA_H_
 
 #include "../inc/listaEncadeada.h"
-#include <cstdlib>
-#include <ctime>
+#include "../inc/gerador.h"
 
 using namespace std;
 
@@ -17,6 +16,8 @@ public:
 	arena( Lista<Monstro>* player, Lista<Monstro>* pc);
 
 	T* getMonstroRand(Lista<T>* , int );
+
+
 
 	void transferir(T* monstro, string de, string para);
 
@@ -95,8 +96,9 @@ void arena<T>::batalha(){
 		cout <<  " vitima" << endl << *monstro_pc << endl;
 
 		int tipo_atack;
-		cout << "(1) Ataque Ativo" << endl << "(2) Ataque Passivo" << endl;
-		cout << "Escolha o tipo de ataque:";
+		cout << "(1) Ataque Ativo" << endl 
+			 << "(2) Ataque Passivo" << endl
+		     << "Escolha o tipo de ataque:";
 		cin >> tipo_atack;
 
 		// player atacando
@@ -113,23 +115,30 @@ void arena<T>::batalha(){
 		cout << endl << "Aperte algo para continuar:";
 		cin >> stop;
 		if(pc->getQuantidade() > 0){
-		srand(time(NULL));
+			srand(time(NULL));
+			aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
 
+			srand(time(NULL));
+			aleatorio2 = rand()%(player->getQuantidade()); // indice de monstro aleatorio
 
-		aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
-		aleatorio2 = rand()%(player->getQuantidade()); // indice de monstro aleatorio
-		monstro_pc = getMonstroRand(pc, aleatorio1);
-		monstro_player = getMonstroRand(player, aleatorio2);
-		
-			if((aleatorio2%2) == 0)
+			monstro_pc = getMonstroRand(pc, aleatorio1);
+			monstro_player = getMonstroRand(player, aleatorio2);
+			
+			if((aleatorio2%2) == 0){
 				atack(monstro_pc, monstro_player, player);
-			else 
+			}
+			else {
 				atack_passivo(monstro_pc);
+			}
 		}else{
 			cout << "VOCE GANHOUEEEE!!!!" << endl;
 		}
-	}if(player->getQuantidade() < 1){
+	}// FORA DO LAÇO DO JOGO
+	if(player->getQuantidade() < 1){
 		cout << "PERDEU, OTAR#*@!!!" << endl;
+		cout << "MAS EM UMA CHANCE. VÁ VISITAR O SARUMAN PRA VER SE GANHA ALGUNS MONSTROS, SEU NOOB!" << endl;
+		gerador saruman(player);
+
 	}
 }
 
