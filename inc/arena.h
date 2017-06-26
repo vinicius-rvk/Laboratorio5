@@ -13,20 +13,20 @@ private:
 	Lista<Monstro>* player;
 	Lista<Monstro>* pc;
 public:
-	arena( Lista<Monstro>* player, Lista<Monstro>* pc);
+	arena( Lista<Monstro>* , Lista<Monstro>* );
 
 	T* getMonstroRand(Lista<T>* , int );
 
 
 
-	void transferir(T* monstro, string de, string para);
+	void transferir(T* , string , string );
 
 	void batalha();
 
 	void atack_passivo(T*);
 
 
-	void atack(T* atacante, T* vitima, Lista<T>* card_defensor);
+	void atack(T* atacante, T* , Lista<T>* , string, string);
 	
 };
 
@@ -78,16 +78,15 @@ void arena<T>::batalha(){
 	while(player->getQuantidade() > 0 && pc->getQuantidade() > 0){
 
 		srand(time(NULL));
-		system("clean");
+		system("clear");
 		player->listar();		
-		cout << "NOME DO MONSTRO Q DESEJA USAR: ";
-		cout << player->getQuantidade() << endl;
-		cout << pc->getQuantidade() << endl;
+		cout << "NOME DO MONSTRO QUE DESEJA USAR: ";
+
 		string nome_monstro;
 		cin >> nome_monstro;
 
 		aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
-		cout << aleatorio1 << endl;
+
 
 		T* monstro_player = player->buscar(nome_monstro);
 		T* monstro_pc = getMonstroRand(pc, aleatorio1);
@@ -103,7 +102,7 @@ void arena<T>::batalha(){
 
 		// player atacando
 		if(tipo_atack == 1){	
-			atack(monstro_player, monstro_pc, pc);
+			atack(monstro_player, monstro_pc, pc, "pc", "player");
 		}
 		else if(tipo_atack == 2){
 			atack_passivo(monstro_player);
@@ -112,34 +111,49 @@ void arena<T>::batalha(){
 			cout << "Escolha errada. \nPerdeu a vez!" << endl; 
 		}
 		// pc atacks
-		cout << endl << "Aperte algo para continuar:";
+		cout << "Pause!" << endl << "Digite go e aperte Enter para continuar: ";
 		cin >> stop;
+		system("clear");
+
 		if(pc->getQuantidade() > 0){
+			cout << "Vez do PC" << endl;
 			srand(time(NULL));
 			aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
 
+
 			srand(time(NULL));
-			aleatorio2 = rand()%(player->getQuantidade()); // indice de monstro aleatorio
+			aleatorio2 = rand()%(player->getQuantidade()); // indice de monstro aleatori
+
 
 			monstro_pc = getMonstroRand(pc, aleatorio1);
 			monstro_player = getMonstroRand(player, aleatorio2);
-			
-			if((aleatorio2%2) == 0){
-				atack(monstro_pc, monstro_player, player);
+
+			system("clear");
+
+			if((aleatorio1%2) == 0){
+			cout << "PC VAI ATACAR" << endl;
+				atack(monstro_pc, monstro_player, player, "player", "pc");
 			}
 			else {
+				cout << "PC ESCOLHEI PASSIVA." <<endl;
 				atack_passivo(monstro_pc);
 			}
 		}else{
 			cout << "VOCE GANHOUEEEE!!!!" << endl;
 		}
-	}// FORA DO LAÇO DO JOGO
-	if(player->getQuantidade() < 1){
-		cout << "PERDEU, OTAR#*@!!!" << endl;
-		cout << "MAS EM UMA CHANCE. VÁ VISITAR O SARUMAN PRA VER SE GANHA ALGUNS MONSTROS, SEU NOOB!" << endl;
-		gerador saruman(player);
+			cout << "Pause!" << endl << "Digite go e aperte Enter para continuar: ";
+			cin >> stop;
+			system("clear");
+		if(player->getQuantidade() < 1){
+			cout << "PERDEU, OTAR#*@!!!" << endl;
+			cout << "MAS EM UMA CHANCE. VÁ VISITAR O SARUMAN PRA VER SE GANHA ALGUNS MONSTROS, SEU NOOB!" << endl;
+			gerador saruman(player);
+			delete player;
+			player = new Lista<Monstro>();
+			player->ler_banco("./banco/player.txt");
 
-	}
+		}
+	}// FORA DO LAÇO DO JOGO
 }
 
 template<typename T>
@@ -150,13 +164,14 @@ void arena<T>::atack_passivo(T* atacante){
 	espirito = atacante->getEspirito()+(int)0.2*atacante->getEspirito();
 	vitalidade = atacante->getVitalidade()+(int)0.2*atacante->getVitalidade(); 
 	dano = forca + espirito + vitalidade;
-	
+	cout << "Antes do atack passivo" <<endl<< *atacante << endl << endl;
 	atacante->setVida(atacante->getVida() + dano);
+	cout << "Depois do atack passivo" << endl << *atacante << endl ;
 }
 
 
 template<typename T>
-void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
+void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor, string de, string para){
 	int forca, espirito, vitalidade, especial;
 
 		if(atacante->getTipo() == "a"){
@@ -174,7 +189,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 				vitima->setVida(vitima->getVida() - dano);
 				cout << *vitima << endl;
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}
 			}else if(vitima->getTipo() == "m"){
@@ -190,7 +205,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 				cout << *vitima << endl;
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}else{
@@ -207,7 +222,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}
@@ -228,7 +243,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 				cout << *vitima << endl;
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}else if(vitima->getTipo() == "a"){
@@ -246,7 +261,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}else{
@@ -263,7 +278,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 				cout << *vitima << endl;
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}		
@@ -283,7 +298,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}else if(vitima->getTipo() == "b"){
@@ -301,7 +316,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}else{
@@ -318,7 +333,7 @@ void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 
 
 				if(vitima->getVida() <= 0){
-					transferir(vitima, "pc", "player"); // Trnsferencia de monstro no banco de dados 
+					transferir(vitima, de, para); // Trnsferencia de monstro no banco de dados 
 					card_defensor->remover(vitima->getNome());  // remover da batalha
 				}			
 			}

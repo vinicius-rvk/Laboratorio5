@@ -19,6 +19,7 @@ bool jokenpo(){
 	srand(time(NULL));
 	saruman = (rand()%3)+1;
 	jogada_saruman(saruman);
+	system("clear");
 
 	if(player == 1){
 		if(saruman == 1){
@@ -63,5 +64,6 @@ bool jokenpo(){
 				 return true;
 		}
 	}
+
 
 }

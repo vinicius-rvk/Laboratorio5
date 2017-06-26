@@ -31,7 +31,7 @@ gerador::gerador(Lista<Monstro>* player){
 
 
 void gerador::carregar(){
-	fstream arquivo("../banco/saruman.txt");
+	fstream arquivo("./banco/saruman.txt");
 	string linha;
 
 	if(arquivo.is_open()){
@@ -53,7 +53,7 @@ void gerador::carregar(){
 				cout << "nenhum tipo" << endl;
 			}
 			saruman.push_back(novo);
-			cout << "saruman carregou monstro" << endl;
+			//cout << "saruman carregou monstro" << endl;
 			palavras.erase(palavras.begin(), palavras.end()); // limpa o vector
 			}
 		arquivo.close();
@@ -92,18 +92,19 @@ void gerador::separar_texto(string in, vector<string>& palavras){
 
 
 void gerador::jogo(){
-	int aleatorio = rand()%saruman.size();
+	int aleatorio;
 	for(int i = 0; i < 5; i++){
 		if(jokenpo() == true){
 			srand(time(NULL));
-			system("clean");
+			aleatorio = rand()%saruman.size();
 			cout << "Ganhou um Monstro!" << endl;
 			cout << aleatorio << endl;
 			
-			cout << saruman[aleatorio] << endl;
+			cout << *(saruman[aleatorio]) << endl;
 			player->inserir(saruman[aleatorio]);
 		}else{
 			cout << "PERDEU, TROXA!" << endl;
 		}
 	}cout << "ACABOU!! SAIA DAQUI ANTES QUE EU TE MATE!" << endl;
+	player->salvar("./banco/player.txt");
 }
