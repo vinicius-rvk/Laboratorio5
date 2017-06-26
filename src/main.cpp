@@ -1,6 +1,6 @@
 #include <iostream>
-#include "listaEncadeada.h"
-#include "arena.h"
+#include "../inc/listaEncadeada.h"
+#include "../inc/arena.h"
 
 using namespace std;
 

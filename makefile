@@ -9,19 +9,19 @@ OBJS = ./src/main.o ./src/besta.o ./src/magico.o ./src/alado.o ./src/monstro.o
 $(PROG) : $(OBJS)
 	$(CC)  $(OBJS)  -o $(PROG)
 
-/src/main.o: ./src/listaEncadeada.h ./src/arena.h
+./src/main.o: ./inc/listaEncadeada.h ./inc/arena.h
 	$(CC) $(CPPFLAGS) -c ./src/main.cpp
 
-/src/monstro.o: ./src/monstro.h
+./src/monstro.o: ./inc/monstro.h
 	$(CC) $(CPPFLAGS) -c ./src/monstro.cpp
 
-/src/magico.o: ./src/magico.h 
+./src/magico.o: ./inc/magico.h 
 	$(CC) $(CPPFLAGS) -c ./src/magico.cpp
 
-/src/alado.o: ./src/alado.h 
+./src/alado.o: ./inc/alado.h 
 	$(CC) $(CPPFLAGS) -c ./src/alado.cpp
 
-/src/besta.o: ./src/besta.h 
+./src/besta.o: ./inc/besta.h 
 	$(CC) $(CPPFLAGS) -c ./src/besta.cpp
 
 clean:

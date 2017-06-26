@@ -1,7 +1,7 @@
 #ifndef _ALADO_HPP_
 #define _ALADO_HPP_
 
-#include "monstro.h"
+#include "../inc/monstro.h"
 
 using namespace std;
 

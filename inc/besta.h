@@ -1,7 +1,7 @@
 #ifndef _BESTAS_HPP_
 #define _BESTAS_HPP_
 
-#include "monstro.h"
+#include "../inc/monstro.h"
 
 using namespace std;
 

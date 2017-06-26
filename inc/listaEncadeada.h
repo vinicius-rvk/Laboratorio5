@@ -7,10 +7,10 @@
 #define _LISTA_H_ // Definição do identificador do cabeçalho
 
 #include <iostream>
-#include "alado.h"
-#include "besta.h"
-#include "magico.h"
-#include "monstro.h"
+#include "../inc/alado.h"
+#include "../inc/besta.h"
+#include "../inc/magico.h"
+#include "../inc/monstro.h"
 #include <vector>
 #include <fstream>
 

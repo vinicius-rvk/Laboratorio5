@@ -1,4 +1,4 @@
-#include "magico.h"
+#include "../inc/magico.h"
 
 using namespace std;
 

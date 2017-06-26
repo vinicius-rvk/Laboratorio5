@@ -1,104 +1,153 @@
-#include "batalha.h"
+#ifndef _ARENA_H_
+#define _ARENA_H_
+
+#include "../inc/listaEncadeada.h"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
+template<typename T>
+class arena
+{
+private:
+	Lista<Monstro>* player;
+	Lista<Monstro>* pc;
+public:
+	arena( Lista<Monstro>* player, Lista<Monstro>* pc);
 
-Monstro* getMonstroRand(Lista<Monstro>* card, int n){
-	Monstro* npc = card->getFirst()->getNext();
-	for(int i = 0; i < (n%card->getQuantidade()+1); i++){
+	T* getMonstroRand(Lista<T>* , int );
+
+	void transferir(T* monstro, string de, string para);
+
+	void batalha();
+
+	void atack_passivo(T*);
+
+
+	void atack(T* atacante, T* vitima, Lista<T>* card_defensor);
+	
+};
+
+template<typename T>
+arena<T>::arena(Lista<Monstro>* player, Lista<Monstro>* pc){
+	this->player = player;
+	this->pc = pc;
+	batalha();
+}
+
+
+template<typename T>
+T* arena<T>::getMonstroRand(Lista<T>* card, int n){
+	T* npc = card->getFirst()->getNext();
+	for(int i = 0; i < n && i < card->getQuantidade(); i++){
 		npc = npc->getNext();
 	}
-	if(npc->getTipo()=="b"){
-		Alado* alado = (Alado*)npc;
-		cout << *alado << endl;
-		return alado;
-	}
-	else if(npc->getTipo()=="b"){
-		Besta* besta = (Besta*)npc;
-		cout << *besta << endl;
-		return besta;
-	}else{
-		Magico* magico = (Magico*)npc;
-		cout << *magico << endl;
-		return magico;
-	}
+
+	return npc;
 }
 
-
-void transferir(Monstro* monstro, string de, string para){
+template<typename T>
+void arena<T>::transferir(T* monstro, string de, string para){
 	// cria lista do banco X
-	Lista<Monstro>* cards = new Lista<Monstro>();
-	cards->ler_banco("./banco/"+de+".txt");
-	Monstro* novo = cards->buscar(monstro->getNome()); //salva monstro M
-	cout << " INFORMAR MONSTRO" << endl;
-	cards->remover(monstro->getNome());
-	cards->salvar("./banco/"+de+".txt"); // Salva banco com monstro removido
-	delete cards;
+	Lista<T>* perdedor = new Lista<T>();
+	Lista<T>* vencedor = new Lista<T>();
+	perdedor->ler_banco("./banco/"+de+".txt");
+	vencedor->ler_banco("./banco/"+para+".txt");
 
-	// Cria lista do banco Y
-	cards = new Lista<Monstro>(); 
-	cards->ler_banco("./banco/"+para+".txt");
+	
+	vencedor->inserir(perdedor->remover(monstro->getNome()));
+
+	//vencedor->inserir((Monstro*)perdedor->remover(monstro->getNome())); // Inseri monstro no banco Y
 
 
-	if(novo->getTipo()=="b"){
-		Alado* alado = (Alado*)novo;
-		cout << *alado << endl;
-		cards->inserir(alado); // Inseri monstro no banco Y
-	}
-	else if(novo->getTipo()=="b"){
-		Besta* besta = (Besta*)novo;
-		cout << *besta << endl;
-		cards->inserir(besta); // Inseri monstro no banco Y
-	}else{
-		Magico* magico = (Magico*)novo;
-		cout << *magico << endl;
-		cards->inserir(magico); // Inseri monstro no banco Y
-	}
+	perdedor->salvar("./banco/"+de+".txt"); // Salva banco com monstro removido
+	vencedor->salvar("./banco/"+para+".txt"); //Salva banco com monstro inserido
 
-	cards->salvar("./banco/"+para+".txt"); //Salva banco com monstro inserido
+	delete perdedor;
+	delete vencedor;
 
 }
 
-void batalha(Lista<Monstro>* player, Lista<Monstro>* pc){
-	string sair = "";
+template <typename T>
+void arena<T>::batalha(){
+	int aleatorio1, aleatorio2; 
+	string stop;
 
-	while(!player->esta_vazia() && !pc->esta_vazia() && sair != "exit"){
+	while(player->getQuantidade() > 0 && pc->getQuantidade() > 0){
 
-		int aleatorio1, aleatorio2; 
+		srand(time(NULL));
 		system("clean");
-		player->listar();
-		pc->listar();
+		player->listar();		
 		cout << "NOME DO MONSTRO Q DESEJA USAR: ";
+		cout << player->getQuantidade() << endl;
+		cout << pc->getQuantidade() << endl;
 		string nome_monstro;
 		cin >> nome_monstro;
 
 		aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
 		cout << aleatorio1 << endl;
 
-		Monstro* monstro_player = player->buscar(nome_monstro);
-		Monstro* monstro_pc = getMonstroRand(pc, aleatorio1);
+		T* monstro_player = player->buscar(nome_monstro);
+		T* monstro_pc = getMonstroRand(pc, aleatorio1);
+
+		cout <<  " atacante" << endl << *monstro_player << endl;
+		cout <<  " vitima" << endl << *monstro_pc << endl;
+
+		int tipo_atack;
+		cout << "(1) Ataque Ativo" << endl << "(2) Ataque Passivo" << endl;
+		cout << "Escolha o tipo de ataque:";
+		cin >> tipo_atack;
 
 		// player atacando
-
-		atack(monstro_player, monstro_pc, pc);
-
-		system("clear");
+		if(tipo_atack == 1){	
+			atack(monstro_player, monstro_pc, pc);
+		}
+		else if(tipo_atack == 2){
+			atack_passivo(monstro_player);
+		}
+		else{
+			cout << "Escolha errada. \nPerdeu a vez!" << endl; 
+		}
 		// pc atacks
+		cout << endl << "Aperte algo para continuar:";
+		cin >> stop;
+		if(pc->getQuantidade() > 0){
+		srand(time(NULL));
+
 
 		aleatorio1 = rand()%(pc->getQuantidade()); // indice de monstro aleatorio
 		aleatorio2 = rand()%(player->getQuantidade()); // indice de monstro aleatorio
 		monstro_pc = getMonstroRand(pc, aleatorio1);
 		monstro_player = getMonstroRand(player, aleatorio2);
-
-		atack(monstro_pc, monstro_player, player);
-
-		cout << "Digite exit para sair? ";
-		cin >> sair;
+		
+			if((aleatorio2%2) == 0)
+				atack(monstro_pc, monstro_player, player);
+			else 
+				atack_passivo(monstro_pc);
+		}else{
+			cout << "VOCE GANHOUEEEE!!!!" << endl;
+		}
+	}if(player->getQuantidade() < 1){
+		cout << "PERDEU, OTAR#*@!!!" << endl;
 	}
 }
 
+template<typename T>
+void arena<T>::atack_passivo(T* atacante){
+	int forca, espirito, vitalidade, dano;
 
-void atack(Monstro* atacante, Monstro* vitima, Lista<Monstro>* card_defensor){
+	forca = atacante->getForca()+(int)(0.3*atacante->getForca());
+	espirito = atacante->getEspirito()+(int)0.2*atacante->getEspirito();
+	vitalidade = atacante->getVitalidade()+(int)0.2*atacante->getVitalidade(); 
+	dano = forca + espirito + vitalidade;
+	
+	atacante->setVida(atacante->getVida() + dano);
+}
+
+
+template<typename T>
+void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor){
 	int forca, espirito, vitalidade, especial;
 
 		if(atacante->getTipo() == "a"){
@@ -267,3 +316,6 @@ void atack(Monstro* atacante, Monstro* vitima, Lista<Monstro>* card_defensor){
 		
 		}
 }
+
+
+#endif

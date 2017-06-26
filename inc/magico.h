@@ -1,7 +1,7 @@
 #ifndef _MAGICO_HPP_
 #define _MAGICO_HPP_
 
-#include "monstro.h"
+#include "../inc/monstro.h"
 
 using namespace std;
 

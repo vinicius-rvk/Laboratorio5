@@ -1,4 +1,4 @@
-#include "alado.h"
+#include "../inc/alado.h"
 using namespace std;
 
 Alado::Alado():Monstro(){}
