@@ -1,0 +1,10 @@
+Criado por Roberto Vinicius Kuo, em 04/05/2017.
+
+Programa criado para simular um jogo de carta.
+
+É feito a leitura do grimorio no banco de dados e listado as cartas para cada player
+
+A lista "listaEncadeada.h" é template e usa alocação dinamica em varios momentos.
+
+As classes Alado, Besta e Magico sao heranças da classe Monstro que tbm é um nó para ser manipulada pela lista
+
