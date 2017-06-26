@@ -64,9 +64,4 @@ bool jokenpo(){
 		}
 	}
 
-} 
-
-int main(){
-	jokenpo();
-	return 0;
 }

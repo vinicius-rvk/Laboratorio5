@@ -1,5 +1,5 @@
-#include "../inc/listaEncadeada.h"
-#include "../inc/jokenpo.h"
+#include "listaEncadeada.h"
+#include "jokenpo.h"
 #include <ctime>
 #include <cstdlib>
 
@@ -94,7 +94,7 @@ void gerador::separar_texto(string in, vector<string>& palavras){
 void gerador::jogo(){
 	int aleatorio = rand()%saruman.size();
 	for(int i = 0; i < 5; i++){
-		if(jokenpo()){
+		if(jokenpo() == true){
 			srand(time(NULL));
 			system("clean");
 			cout << "Ganhou um Monstro!" << endl;

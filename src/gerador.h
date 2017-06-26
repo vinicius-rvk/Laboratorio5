@@ -1,16 +1,15 @@
-#include "../inc/listaEncadeada.h"
-#include "../inc/jokenpo.h"
-#include <list>
+#include "listaEncadeada.h"
+#include "jokenpo.h"
 #include <ctime>
 #include <cstdlib>
 
 using namespace std;
 
-template<typename T>
+
 class gerador
 {
 private:
-	list<Monstro>* saruman;
+	vector<Monstro*> saruman;
 	Lista<Monstro>* player;
 public:
 	gerador(Lista<Monstro>* player);
@@ -22,16 +21,16 @@ public:
 };
 
 
-template<typename T>
-gerador<T>::gerador(Lista<Monstro>* player){
+
+gerador::gerador(Lista<Monstro>* player){
 	this->player = player;
 	carregar();
 
 	jogo();
 }
 
-template<typename T>
-void gerador<T>::carregar(){
+
+void gerador::carregar(){
 	fstream arquivo("../banco/saruman.txt");
 	string linha;
 
@@ -41,7 +40,7 @@ void gerador<T>::carregar(){
 
 			separar_texto(linha, palavras);  // trata a linha do banco de dados
 			
-			T* novo;
+			Monstro* novo;
 			if(palavras[6] == "a"){
 				novo = new Alado(palavras);
 			}
@@ -53,7 +52,7 @@ void gerador<T>::carregar(){
 			}else{
 				cout << "nenhum tipo" << endl;
 			}
-			saruman->push_back(novo);
+			saruman.push_back(novo);
 			cout << "saruman carregou monstro" << endl;
 			palavras.erase(palavras.begin(), palavras.end()); // limpa o vector
 			}
@@ -66,8 +65,8 @@ void gerador<T>::carregar(){
 }
 
 
-template<typename T>
-void gerador<T>::separar_texto(string in, vector<string>& palavras){
+
+void gerador::separar_texto(string in, vector<string>& palavras){
 
 	int i =0, j = 0;
 	string guarda;
@@ -91,21 +90,20 @@ void gerador<T>::separar_texto(string in, vector<string>& palavras){
 	palavras.push_back(guarda);
 }
 
-template<typename T>
-void gerador<T>::jogo(){
-	bool ganhou;
-	int aleatorio = rand()%saruman->size();
+
+void gerador::jogo(){
+	int aleatorio = rand()%saruman.size();
 	for(int i = 0; i < 5; i++){
-		if(jokenpo()){
+		if(jokenpo() == true){
 			srand(time(NULL));
 			system("clean");
 			cout << "Ganhou um Monstro!" << endl;
-			cout << aleaTorio << endl;
-			Monstro* novo = saruman[aleatorio];
-			cout << *novo << endl;
-			player->inserir(novo);
+			cout << aleatorio << endl;
+			
+			cout << saruman[aleatorio] << endl;
+			player->inserir(saruman[aleatorio]);
 		}else{
 			cout << "PERDEU, TROXA!" << endl;
 		}
-	}cout << "ACABOU!! SAI DAQUI ANTES QUE EU TE MATE!" << endl;
+	}cout << "ACABOU!! SAIA DAQUI ANTES QUE EU TE MATE!" << endl;
 }
