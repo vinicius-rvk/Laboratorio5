@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Lista\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classLista.html",tooltip="objeto generico com a finalidade de criar e manipular lista de qualquer objeto. "];
+}

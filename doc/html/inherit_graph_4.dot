@@ -1,0 +1,13 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Monstro",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMonstro.html",tooltip="Classe para Monstro. "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Alado",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAlado.html",tooltip="Classe para Alado. "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Besta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classBesta.html",tooltip="Classe para Besta. "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Magico",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMagico.html",tooltip="Classe para Magico. "];
+}
