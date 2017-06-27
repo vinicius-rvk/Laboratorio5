@@ -1,31 +1,34 @@
 #Makefile for "programa" C++ application
 #Criado por Roberto Vinicius Kuo
 
-PROG = ./bin/jogo
+PROG = jogo
+EXE = bin
+OBJ =build
+INC = inc
 CC = g++
 CPPFLAGS = -O0 -g -W -Wall -pedantic -std=c++11
-OBJS = ./src/main.o ./src/besta.o ./src/magico.o ./src/alado.o ./src/monstro.o ./src/jokenpo.o
+OBJS = build/main.o build/besta.o build/magico.o build/alado.o build/monstro.o build/jokenpo.o
 
-$(PROG) : $(OBJS)
-	$(CC)  $(OBJS)  -o $(PROG)
+$(EXE)/$(PROG) : $(OBJS)
+	$(CC)  $(OBJS)  -o $@
 
-/src/main.o: ./inc/listaEncadeada.h ./inc/arena.h
-	$(CC) $(CPPFLAGS) -c ./src/main.cpp  
+$(OBJ)/main.o: $(INC)/listaEncadeada.h $(INC)/arena.h
+	$(CC) $(CPPFLAGS) -c src/main.cpp  -o $@ -I$(INC)
 
-/src/monstro.o: ./inc/monstro.h
-	$(CC) $(CPPFLAGS) -c ./src/monstro.cpp 
+$(OBJ)/monstro.o: $(INC)/monstro.h
+	$(CC) $(CPPFLAGS) -c src/monstro.cpp -o $@ -I$(INC)
 
-/src/magico.o: ./inc/magico.h 
-	$(CC) $(CPPFLAGS) -c ./src/magico.cpp 
+$(OBJ)/magico.o: $(INC)/magico.h 
+	$(CC) $(CPPFLAGS) -c src/magico.cpp -o $@ -I$(INC)
 
-/src/alado.o: ./inc/alado.h 
-	$(CC) $(CPPFLAGS) -c ./src/alado.cpp 
+$(OBJ)/alado.o: $(INC)/alado.h 
+	$(CC) $(CPPFLAGS) -c src/alado.cpp -o $@ -I$(INC)
 
-/src/besta.o: ./inc/besta.h 
-	$(CC) $(CPPFLAGS) -c ./src/besta.cpp 
+$(OBJ)/besta.o: $(INC)/besta.h 
+	$(CC) $(CPPFLAGS) -c src/besta.cpp -o $@ -I$(INC)
 
-/src/jokenpo.o: ./inc/jokenpo.h
-	$(CC) $(CPPFLAGS) -c ./src/jokenpo.cpp 
+$(OBJ)/jokenpo.o: $(INC)/jokenpo.h
+	$(CC) $(CPPFLAGS) -c src/jokenpo.cpp -o $@ -I$(INC)
 
 clean:
 	rm -f core $(OBJS)
