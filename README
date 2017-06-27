@@ -1,10 +1,48 @@
-Criado por Roberto Vinicius Kuo, em 04/05/2017.
+## Criado por Roberto Vinicius Kuo, em 04/05/2017.
 
 Programa criado para simular um jogo de carta.
+
+Duela contra o pc e se perder visitará o SARUMAN onde tera 5 disputas de JOKENPO. A casa vitória sua o SARUMAN lhe da uma carta.
 
 É feito a leitura do grimorio no banco de dados e listado as cartas para cada player
 
 A lista "listaEncadeada.h" é template e usa alocação dinamica em varios momentos.
 
-As classes Alado, Besta e Magico sao heranças da classe Monstro que tbm é um nó para ser manipulada pela lista
+As classes Alado, Besta e Magico sao heranças da classe Monstro que é um nó para ser manipulada pela lista
+
+## CONFIGURAÇÃO
+
+	Os grimórios localizam-se na pasta /banco/.
+	O grimório do usuário está armazenado no 
+	arquivo "player.txt" e o do computador, no "pc.txt". 
+	No mesmo diretório, há, ainda, os arquivos de criação do saruman
+
+	Cada monstro nos arquivos de grimório deve ter o seguinte formato:
+	nome;vida;força;espirito;vitalidade;habilidade especial;tipo
+
+	A separação entre dois monstros é dada por UMA quebra de linha.
+
+## COMPILAÇÃO
+
+	É necessário entrar na pasta raiz do projeto e digitar "make"
+	Será compilado as bibliotecas dinamicas e o jogo, linkando tudo 
+
+## EXECUÇÃO
+
+	Deve-se entrar no subdiretório /bin/ e digitar "./jogo"
+
+## Itens Avaliados
+
+	*Biblioteca jokenpo e geradora estão na pasta /lib
+	*Container vector sendo usado no arquivo /src/gerador.cpp e /inc/gerador.h
+	*Adição de monstro no grimorio do conjurador esta no arquivo /src/gerador.cpp na função jogo
+	*Uso de construtores facilmente visto no main, mas tem-se em outros arquivos tambêm
+	*Alocação dinamica no main.cpp e em outros arquivos 
+	* Limite de 5 partidas no jokenpo esta o arquivo gerador.cpp função jogo
+	*Documentação do codgo em doxygen na pasta /doc/
+	*integração da biblioteca no mikefile criando gerador.so jokenpo.so e linkando com jogo
+	*Sobrecarga de operadores nos construtores das classes
+	*Mikefile na pasta raiz
+	*README it's me
+
 
