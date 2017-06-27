@@ -2,7 +2,6 @@
 #define _ARENA_H_
 
 #include "listaEncadeada.h"
-#include "gerador.h"
 
 using namespace std;
 
@@ -147,11 +146,7 @@ void arena<T>::batalha(){
 		if(player->getQuantidade() < 1){
 			cout << "PERDEU, OTAR#*@!!!" << endl;
 			cout << "MAS EM UMA CHANCE. VÁ VISITAR O SARUMAN PRA VER SE GANHA ALGUNS MONSTROS, SEU NOOB!" << endl;
-			gerador saruman(player);
 			delete player;
-			player = new Lista<Monstro>();
-			player->ler_banco("./banco/player.txt");
-
 		}
 	}// FORA DO LAÇO DO JOGO
 }
