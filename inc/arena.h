@@ -1,3 +1,7 @@
+/**
+ * @file arena.h
+ */
+
 #ifndef _ARENA_H_
 #define _ARENA_H_
 
@@ -5,6 +9,9 @@
 
 using namespace std;
 
+/**
+* @brief Classe arena. Onde acontece o duelo
+*/
 template<typename T>
 class arena
 {
@@ -12,23 +19,47 @@ private:
 	Lista<Monstro>* player;
 	Lista<Monstro>* pc;
 public:
-	arena( Lista<Monstro>* , Lista<Monstro>* );
 
+	/**
+	* @brief Construtor e inicio da batalha
+	* @param arq Nome do arquivo a ser lido
+	*/
+	arena( Lista<Monstro>* , Lista<Monstro>* );
+	/**
+	* @brief Função para pegar um monstro aleatorio da lista
+	* @param Lista<T>  Uma lista de monstros
+	* @param int  Um inteiro aleatorio
+	*/
 	T* getMonstroRand(Lista<T>* , int );
 
 
-
+	/**
+	* @brief Transferi um monstro lista e do banco x para a lista e banco y
+	* @param arq Nome do arquivo a ser lido
+	*/
 	void transferir(T* , string , string );
 
+	/**
+	* @brief Onde acontece a batalha dos monstros
+	*/
 	void batalha();
 
+	/**
+	* @brief Aumenta a propria vida
+	*/
 	void atack_passivo(T*);
 
-
+	/**
+	* @brief Ataca um outro monstro observando as vantagens
+	*/
 	void atack(T* atacante, T* , Lista<T>* , string, string);
 	
 };
 
+/**
+* @brief Construtor e inicio da batalha
+* @param arq Nome do arquivo a ser lido
+*/
 template<typename T>
 arena<T>::arena(Lista<Monstro>* player, Lista<Monstro>* pc){
 	this->player = player;
@@ -36,7 +67,11 @@ arena<T>::arena(Lista<Monstro>* player, Lista<Monstro>* pc){
 	batalha();
 }
 
-
+/**
+* @brief Função para pegar um monstro aleatorio da lista
+* @param Lista<T>  Uma lista de monstros
+* @param int  Um inteiro aleatorio
+*/
 template<typename T>
 T* arena<T>::getMonstroRand(Lista<T>* card, int n){
 	T* npc = card->getFirst()->getNext();
@@ -46,7 +81,10 @@ T* arena<T>::getMonstroRand(Lista<T>* card, int n){
 
 	return npc;
 }
-
+/**
+* @brief Transferi um monstro lista e do banco x para a lista e banco y
+* @param arq Nome do arquivo a ser lido
+*/
 template<typename T>
 void arena<T>::transferir(T* monstro, string de, string para){
 	// cria lista do banco X
@@ -69,6 +107,9 @@ void arena<T>::transferir(T* monstro, string de, string para){
 
 }
 
+/**
+* @brief Onde acontece a batalha dos monstros
+*/
 template <typename T>
 void arena<T>::batalha(){
 	int aleatorio1, aleatorio2; 
@@ -151,6 +192,9 @@ void arena<T>::batalha(){
 	}// FORA DO LAÇO DO JOGO
 }
 
+/**
+* @brief Aumenta a propria vida
+*/
 template<typename T>
 void arena<T>::atack_passivo(T* atacante){
 	int forca, espirito, vitalidade, dano;
@@ -165,6 +209,9 @@ void arena<T>::atack_passivo(T* atacante){
 }
 
 
+/**
+* @brief Ataca um outro monstro observando as vantagens
+*/
 template<typename T>
 void arena<T>::atack(T* atacante, T* vitima, Lista<T>* card_defensor, string de, string para){
 	int forca, espirito, vitalidade, especial;

@@ -1,3 +1,7 @@
+/**
+ * @file gerador.h
+ */
+
 #ifndef _GERADOR_H_
 #define _GERADOR_H_
 

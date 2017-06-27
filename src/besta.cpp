@@ -1,7 +1,17 @@
+/**
+  *@file besta.cpp
+  */
+
+
 #include "../inc/besta.h"
 using namespace std;
-
+/**
+* @brief Construtor vazio
+*/
 Besta::Besta():Monstro(){}
+/**
+* @brief Construtor recebendo um vector contendo as informações necessarias (ver cpp)
+*/
 Besta::Besta(vector<string>& palavras){
 
 
@@ -14,6 +24,10 @@ Besta::Besta(vector<string>& palavras){
 	this->furia = stoi(palavras[5]);
 
 }
+
+/**
+* @brief Construtor para criar um monstro manualmente
+*/
 Besta::Besta(string nome,
 				int vida, 
 				int forca, 
@@ -24,10 +38,19 @@ Besta::Besta(string nome,
 					furia(furia)
 					{}
 
+/**
+* @brief Retorna especial
+*/
 int Besta::getEspecial(){return this->furia;}
 
+/**
+* @brief Modifica especial
+*/
 void Besta::setEspecial(int furia){this->furia = furia;}
 
+/**
+* @brief sobrecarga do operador <<
+*/
 ostream& operator<<(ostream& o, Besta& besta ){
 	o << "Nome: " << besta.getNome() << endl;
 	o << "Vida: " << besta.getVida() << endl;
@@ -38,4 +61,4 @@ ostream& operator<<(ostream& o, Besta& besta ){
 return o;
 }
 
-//friend istream& operator>>(istream&, besta&);
+

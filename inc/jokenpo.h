@@ -1,5 +1,6 @@
-
-
+/**
+ * @file jokenpo.h
+ */
 
 #ifndef _JOKENPO_H_
 #define _JOKENPO_H_

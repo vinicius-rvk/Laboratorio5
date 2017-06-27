@@ -1,7 +1,14 @@
+/**
+  *@file gerador.cpp
+  */
+
+
 #include "../inc/gerador.h"
 
 using namespace std;
-
+/**
+* @brief Construtor vazio
+*/
 gerador::gerador(Lista<Monstro>* player){
 	this->player = player;
 	carregar();
@@ -9,7 +16,9 @@ gerador::gerador(Lista<Monstro>* player){
 	jogo();
 }
 
-
+/**
+* @brief Carrega banco de dados do saruman
+*/
 void gerador::carregar(){
 	fstream arquivo("./banco/saruman.txt");
 	string linha;
@@ -43,9 +52,9 @@ void gerador::carregar(){
 	}
 
 }
-
-
-
+/**
+* @brief Tratamento das linhas do banco de dados
+*/
 void gerador::separar_texto(string in, vector<string>& palavras){
 
 	int i =0, j = 0;
@@ -70,7 +79,9 @@ void gerador::separar_texto(string in, vector<string>& palavras){
 	palavras.push_back(guarda);
 }
 
-
+/**
+* @brief Inicio para o jogo jokenpo contra o saruman
+*/
 void gerador::jogo(){
 	int aleatorio;
 	for(int i = 0; i < 5; i++){

@@ -1,8 +1,19 @@
+/**
+  *@file magico.cpp
+  */
+
+
 #include "../inc/magico.h"
 
 using namespace std;
 
+/**
+* @brief Construtor vazio
+*/
 Magico::Magico():Monstro(){}
+/**
+* @brief Construtor recebendo um vector contendo as informações necessarias (ver cpp)
+*/
 Magico::Magico(vector<string>& palavras){
 
 
@@ -15,6 +26,9 @@ Magico::Magico(vector<string>& palavras){
 	this->magic_point = stoi(palavras[5]);
 
 }
+/**
+* @brief Construtor para criar um monstro manualmente
+*/
 Magico::Magico( string nome,
 				int vida,
 				int forca, 
@@ -25,11 +39,19 @@ Magico::Magico( string nome,
 					magic_point(magic_point)
 					{}
 
+/**
+* @brief Retorna especial
+*/
 int Magico::getEspecial(){return this->magic_point;}
 
-
+/**
+* @brief Modifica especial
+*/
 void Magico::setEspecial(int magic_point){this->magic_point = magic_point;}
 
+/**
+* @brief sobrecarga do operador <<
+*/
 ostream& operator<<(ostream& o, Magico& magico){
 	o << "Nome: " << magico.getNome() << endl;
 	o << "Vida: " << magico.getVida() << endl;
@@ -39,5 +61,3 @@ ostream& operator<<(ostream& o, Magico& magico){
 	o << "Magic_point: " << magico.getEspecial() << endl;
 return o;
 }
-
-//friend istream& operator>>(istream&, Magico&);

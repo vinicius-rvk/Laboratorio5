@@ -46,6 +46,7 @@ $(OBJ)besta.o: $(INC)besta.h
 
 
 clean:
-	rm -f core $(OBJS) $(OBJ)jokenpo.o $(OBJ)gerador.o $(LIB)gerador.so $(LIB)jokenpo.so
+	rm -f core $(OBJS) $(OBJ)jokenpo.o $(OBJ)gerador.o 
+	##$(LIB)gerador.so $(LIB)jokenpo.so
 clean_all:
 	rm -f core $(PROG) $(OBJS)

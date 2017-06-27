@@ -1,7 +1,17 @@
+/**
+  *@file alado.cpp
+  */
+
 #include "../inc/alado.h"
 using namespace std;
 
+/**
+* @brief Construtor vazio
+*/
 Alado::Alado():Monstro(){}
+/**
+* @brief Construtor recebendo um vector contendo as informações necessarias (ver cpp)
+*/	
 Alado::Alado(vector<string>& palavras){
 
 
@@ -14,6 +24,9 @@ Alado::Alado(vector<string>& palavras){
 	this->agilidade = stoi(palavras[5]);
 
 }
+/**
+* @brief Construtor para criar um monstro manualmente
+*/
 Alado::Alado(string nome,
 				int vida, 
 				int forca, 
@@ -25,11 +38,20 @@ Alado::Alado(string nome,
 					agilidade(agilidade)
 					{}
 
+
+/**
+* @brief Retorna especial
+*/	
 int Alado::getEspecial(){return this->agilidade;}
 
-
+/**
+* @brief Modifica especial
+*/
 void Alado::setEspecial(int agilidade){this->agilidade = agilidade;}
 
+/**
+* @brief sobrecarga do operador <<
+*/
 ostream& operator<<(ostream& o, Alado& alado){
 	o << "Nome: " << alado.getNome() << endl;
 	o << "Vida: " << alado.getVida() << endl;
@@ -40,4 +62,3 @@ ostream& operator<<(ostream& o, Alado& alado){
 return o;
 }
 
-//friend istream& operator>>(istream&, Alado&);

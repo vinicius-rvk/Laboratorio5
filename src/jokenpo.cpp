@@ -1,14 +1,26 @@
+/**
+  *@file jokenpo.cpp
+  */
+
+
 #include "../inc/jokenpo.h"
 
 using namespace std;
 
+/*
+* @brief Monstra o que o Saruman escolheu
+* @param i  Recebe a opção do Saruman
+*/
 void jogada_saruman(int i){
 	cout << "JOKENPO... "<< endl << "EU ESCOLHO ";
 	if(i == 1) cout << "PEDRA!" << endl;
 	else if(i == 2) cout << "PAPEL!" << endl;
 	else cout << "TESOURA!" << endl;
 }
-
+/*
+* @brief Jogo simples de jokenpo retornando true para vitoria e false para derota
+* @return venceu?
+*/
 bool jokenpo(){
 	int player, saruman;
 	cout << "(1)Pedra"<< endl 

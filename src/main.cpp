@@ -1,3 +1,13 @@
+
+/**
+* @title jogo
+* @file main.cpp
+* @version 1.0
+* @date 27/06/2017
+* @author Roberto Vinicius Kuo
+* @brief principal funcao do programa
+*/
+
 #include <iostream>
 #include "../inc/arena.h"
 #include "../inc/gerador.h"

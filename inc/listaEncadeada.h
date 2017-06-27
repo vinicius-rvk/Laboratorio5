@@ -293,6 +293,11 @@ void Lista<T>::ler_banco(string arq){
 		cout << "ARQUIVO "<< arq <<" NAO ABRIU!" << endl;
 	}
 }
+
+/**
+* @brief Recebe o nome do arquivo e salva em formato especifico no arquivo
+* @param arq Nome do arquivo a ser lido
+*/
 template<typename T>
 void Lista<T>:: salvar(string arq){
 	ofstream arquivo(arq);
@@ -323,6 +328,11 @@ void Lista<T>:: salvar(string arq){
 	}cout << endl;
 
 }
+/**
+* @brief Verifica se a Lista esta vazia
+* @return true/false se ela esta vazia, true; se nao, false
+*/
+
 template<typename T>
 bool Lista<T>::esta_vazia(){
 	T* teste = first->getNext();

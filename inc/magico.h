@@ -1,3 +1,7 @@
+/**
+ * @file magico.h
+ */
+
 #ifndef _MAGICO_HPP_
 #define _MAGICO_HPP_
 
